@@ -1,16 +1,74 @@
 {% extends "layout.html" %}
 {% block body %}
-    <h1>Home Page</h1> 
-    {% for blog in blog %}
-    <article class="media content-section">
-        <div class="media-body">
-          <div class="article-metadata">
-            <a class="mr-2" href="#">{{ blog.author }}</a>
-            <small class="text-muted">{{ blog.date_posted }}</small>
+    <div class="container-fluid">
+        <h1 class="mt-5">Movie Review Homepage</h1>
+
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-12 mb-4">
+                <a href="https://example.com/movie1-link">
+                    <div class="card movie-card">
+                        <img src="{{url_for('static', filename='moviepics/movie1.jpeg')}}" class="card-img-top movie-image" alt="Movie 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Movie 1</h5>
+                            <p class="card-text">Click to view or add reviews</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-12 mb-4">
+                <a href="https://example.com/movie2-link">
+                    <div class="card movie-card">
+                        <img src="{{url_for('static', filename='moviepics/movie2.jpg')}}" class="card-img-top movie-image" alt="Movie 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Movie 2</h5>
+                            <p class="card-text">Click to view or add reviews</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        
+
+        
+          <div class="col-md-12 mb-4">
+              <a href="https://example.com/movie1-link">
+                  <div class="card movie-card">
+                      <img src="{{url_for('static', filename='moviepics/movie3.jpg')}}" class="card-img-top movie-image" alt="Movie 1">
+                      <div class="card-body">
+                          <h5 class="card-title">Movie 1</h5>
+                          <p class="card-text">Click to view or add reviews</p>
+                      </div>
+                  </div>
+              </a>
           </div>
-          <h2><a class="article-title" href="#">{{ blog.title }}</a></h2>
-          <p class="article-content">{{ blog.content }}</p>
-        </div>
-      </article>
-    {% endfor %}
+
+          <div class="col-md-12 mb-4">
+              <a href="https://example.com/movie2-link">
+                  <div class="card movie-card">
+                      <img src="{{url_for('static', filename='moviepics/movie4.jpg')}}" class="card-img-top movie-image" alt="Movie 2">
+                      <div class="card-body">
+                          <h5 class="card-title">Movie 2</h5>
+                          <p class="card-text">Click to view or add reviews</p>
+                      </div>
+                  </div>
+              </a>
+          </div>
+      </div>
+
+    </div>
+
+    <style>
+        .movie-image {
+            height: 500px;
+            width: 140%;
+            object-fit: cover;
+        }
+        .movie-card {
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+    </style>
 {% endblock body %}
