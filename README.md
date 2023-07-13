@@ -1,9 +1,9 @@
-# SentiYoruba
-## Yoruba Movie Sentiment Analysis
+# Yoruba Movie Sentiment Analysis
+## Introduction
 This project aims to perform sentiment analysis on Yoruba movie reviews. The goal is to analyze the sentiment of the reviews and classify them as positive, negative, or neutral. The sentiment analysis will help gain insights into the audience's perception and opinions about Yoruba movies.
 
 ## Dataset
-The dataset used for this project consists of Yoruba movie reviews collected from various online platforms, it is a yosm: A new yoruba sentiment corpus for movie reviews. It includes a collection of 1500 reviews written in Yoruba language, along with their corresponding sentiment labels (positive, negative, or neutral). The dataset is manually labeled by human annotators to ensure accuracy.
+The dataset used for this project consists of Yoruba movie reviews collected from various online platforms, it is a yosm: A new yoruba sentiment corpus for movie reviews. It includes a collection of 1500 reviews written in Yoruba language, along with their corresponding sentiment labels (positive, negative, or neutral). The dataset is manually labeled by human annotators to ensure accuracy. find link to dataset here: https://lanfrica.com/record/yosm-a-new-yor-b-sentiment-corpus-for-movie-reviews
 
 ## Technology Stack
 The project is developed using the following technologies and tools:
