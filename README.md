@@ -24,6 +24,21 @@ The project is structured as follows:
 * webapp/: Includes the code and templates for the web application that showcases the sentiment analysis results.
 * requirements.txt: Lists all the Python dependencies required for running the project.
 
+## How To Use
+To run the Yoruba Movie Sentiment Analysis project, follow these steps:
+
+* Clone the repository:
+git clone https://github.com/myles4321/SentiYoruba.git
+* Install the required dependencies using pip:
+pip install -r requirements.txt
+* Prepare the YOSM Corpus dataset by placing the movie reviews in the appropriate directory.
+* Run the data preprocessing scripts to clean and preprocess the Yoruba movie reviews.
+* Train and evaluate the sentiment analysis models using the preprocessed data.
+* Build and run the web application to showcase the sentiment analysis results.
+* Access the web application through a web browser to interact with the sentiment analysis system.
+
+
+
 ## Future Enhancements
 The project can be further improved in the following ways:
 
