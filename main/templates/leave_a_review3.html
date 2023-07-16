@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<div class="container-fluid">
+    <h1 class="mt-5">Leave Your Review</h1>
+
+    <div class="row mt-5 justify-content-center">
+        <h4><i>Battle on Buka Street</i></h4>
+        <div class="col-md-12 mb-4">
+            <div class="card movie-card">
+                <img src="{{url_for('static', filename='moviepics/movie1.jpeg')}}" class="card-img-top movie-image" alt="Movie 1">
+            </div>
+            <div>
+                <p>Genre: <i>Comedy</i></p>
+            </div>
+            <div>
+                <h1></h1>
+                <h4>Summary:</h4>
+                <p>After a lifetime of rivalry, two half-sisters find themselves at loggerheads once again when they set up food businesses on the same street.</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div>
+                <p><b>Directors:</b> <i>Funke Akindele, Tobi Makinde</i></p>
+            </div>
+            <div class="divider"></div>
+            <div>
+                <p><b>Writers:</b> <i>Funke Akindele, Jack'enneth Opukeme, Stephen Oluboyo</i></p>
+            </div>
+            <div class="divider"></div>
+            <div>
+                <p><b>Stars:</b> <i>Pat Adams, Bimbo Ademoye, Victor Adesokan</i></p>
+            </div>
+            <div class="divider"></div>
+
+            <div>Leave your review:</div>
+            
+            <div class="content-section " >
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">New Review</legend>
+                        
+                        <div class="form-group">
+                            {{ form.review.label(class="form-control-label") }}
+        
+                            {% if form.review.errors %}
+                                {{ form.review(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.review.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.review(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        
+                    </fieldset>
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+                </form>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+</div>    
+
+
+
+
+<style>
+
+.divider {
+        border-top: 1px solid #ccc;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+</style>
+
+{% endblock body %}
