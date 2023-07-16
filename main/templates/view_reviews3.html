@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<div class="container-fluid">
+    <h1 class="mt-5">Movie Reviews</h1>
+
+    <div class="row mt-5 justify-content-center">
+        <h4><i>The Ghost And The Tout Too</i></h4>
+        <div class="col-md-12 mb-4">
+            <div class="card movie-card">
+                <img src="{{url_for('static', filename='moviepics/movie3.jpg')}}" class="card-img-top movie-image" alt="Movie 2">
+            </div>
+            <div>
+                <p>Genre: <i>Comedy, Fantasy</i></p>
+            </div>
+            <div>
+                <h1></h1>
+                <h4>Summary:</h4>
+                <p>A woman who can reluctantly communicate with ghosts tries to help the spirit of a woman whose body is in a coma, leaving her trapped between life and death.</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div>
+                <p><b>Director:</b> <i>Michael Akinrogunde</i></p>
+            </div>
+            <div class="divider"></div>
+            <div>
+                <p><b>Writers:</b> <i>Uyoyou Adia, Yusuf Carew, Akay Ilozobhie</i></p>
+            </div>
+            <div class="divider"></div>
+            <div>
+                <p><b>Stars:</b> <i>Ayomide Abayode, Alexander Abolore, Anthony Abraham</i></p>
+            </div>
+            <div class="divider"></div>
+
+            <div style="margin-bottom: 10px;">
+                <h3>Users Reviews</h3>
+            </div>
+            
+            {% if total_reviews > 0 %}
+                <div style="font-size: 18px;">
+                    Total Reviews: {{ total_reviews }}<br>
+                    Percentage of Positive Reviews: {{ percentage_positive }}%<br>
+                    Percentage of Negative Reviews: {{ percentage_negative }}%<br>
+                    {% if percentage_positive > percentage_negative %}
+                        <p style="color: green; font-weight: bold;">Recommendation: Recommended</p>
+                    {% elif percentage_positive < percentage_negative %}
+                        <p style="color: red; font-weight: bold;">Recommendation: Not Recommended</p>
+                    {% else %}
+                        <p style="color: blue; font-weight: bold;">Recommendation: Neutral</p>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div style="font-size: 18px;">
+                    No reviews available.
+                </div>
+            {% endif %}
+            
+            
+
+            {% for review in review %}
+            <article class="media content-section">
+                <img class="rounded-circle article-img" src="{{ url_for('static', filename='profilepics/' + review.user.image_file) }}">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <a class="mr-2" href="#">{{ review.user.username }}</a>
+                  <small class="text-muted">{{ review.date_posted.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <p class="article-content">{{ review.review }}</p>
+                <p class="article-content"><span style="color: brown;">Review Sentiment:</span> {{ review.review_sentiment }}</p>
+              </div>
+            </article>
+        {% endfor %}
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+</div>    
+
+
+
+
+<style>
+
+.divider {
+        border-top: 1px solid #ccc;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+</style>
+
+{% endblock body %}

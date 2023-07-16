@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<div class="container-fluid">
+    <h1 class="mt-5">Movie Review Homepage</h1>
+
+    <div class="row mt-5 justify-content-center">
+        <h4><i>Citation</i></h4>
+        <div class="col-md-12 mb-4">
+            <div class="card movie-card">
+                <img src="{{url_for('static', filename='moviepics/movie4.jpg')}}" class="card-img-top movie-image" alt="Movie 2">
+            </div>
+            <div>
+                <p>Genre: <i>Drama, Thriller</i></p>
+            </div>
+            <div>
+                <h1></h1>
+                <h4>Summary:</h4>
+                <p>A bright student in Nigeria takes on the academic establishment when she reports a popular professor who tried to rape her. Based on real events.</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div>
+                <p><b>Director:</b> <i>Kunle Afolayan</i></p>
+            </div>
+            <div class="divider"></div>
+            <div>
+                <p><b>Writer:</b> <i>Tunde Babalola</i></p>
+            </div>
+            <div class="divider"></div>
+            <div>
+                <p><b>Stars:</b> <i>Jimmy Jean-Louis, Gabriel Afolayan, Ini Edo</i></p>
+            </div>
+            <div class="divider"></div>
+
+            <div style="margin-bottom: 10px;">
+                <h3>Users Reviews</h3>
+            </div>
+            
+            {% if total_reviews > 0 %}
+                <div style="font-size: 18px;">
+                    Total Reviews: {{ total_reviews }}<br>
+                    Percentage of Positive Reviews: {{ percentage_positive }}%<br>
+                    Percentage of Negative Reviews: {{ percentage_negative }}%<br>
+                    {% if percentage_positive > percentage_negative %}
+                        <p style="color: green; font-weight: bold;">Recommendation: Recommended</p>
+                    {% elif percentage_positive < percentage_negative %}
+                        <p style="color: red; font-weight: bold;">Recommendation: Not Recommended</p>
+                    {% else %}
+                        <p style="color: blue; font-weight: bold;">Recommendation: Neutral</p>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div style="font-size: 18px;">
+                    No reviews available.
+                </div>
+            {% endif %}
+
+            {% for review in review %}
+            <article class="media content-section">
+                <img class="rounded-circle article-img" src="{{ url_for('static', filename='profilepics/' + review.user.image_file) }}">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <a class="mr-2" href="#">{{ review.user.username }}</a>
+                  <small class="text-muted">{{ review.date_posted.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <p class="article-content">{{ review.review }}</p>
+                <p class="article-content"><span style="color: brown;">Review Sentiment:</span> {{ review.review_sentiment }}</p>
+              </div>
+            </article>
+        {% endfor %}
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+</div>    
+
+
+
+
+<style>
+
+.divider {
+        border-top: 1px solid #ccc;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+</style>
+
+{% endblock body %}
