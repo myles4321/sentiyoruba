@@ -5,16 +5,6 @@ This project aims to perform sentiment analysis on Yoruba movie reviews. The goa
 ## Dataset
 The dataset used for this project consists of Yoruba movie reviews collected from various online platforms, it is a yosm: A new yoruba sentiment corpus for movie reviews. It includes a collection of 1500 reviews written in Yoruba language, along with their corresponding sentiment labels (positive, negative, or neutral). The dataset is manually labeled by human annotators to ensure accuracy. find link to dataset here: https://lanfrica.com/record/yosm-a-new-yor-b-sentiment-corpus-for-movie-reviews
 
-## Technology Stack
-The project is developed using the following technologies and tools:
-
-* Python: The programming language used for implementing the sentiment analysis algorithms and data processing tasks.
-* Natural Language Processing (NLP) Libraries: NLP libraries such as NLTK are utilized for text preprocessing, feature extraction, and sentiment analysis.
-* Machine Learning Libraries: Libraries like sklearn, joblib, pandas, seaborn are employed for training and evaluating machine learning models for sentiment classification.
-* Flask: A Python web framework used for building the web application to showcase the sentiment analysis results.
-* HTML/CSS/JavaScript: Front-end technologies used for designing and styling the web application user interface.
-* MySQL: Databases to store the movie reviews and their sentiment labels.
-
 ## Project Structure
 The project is structured as follows:
 
@@ -36,8 +26,6 @@ pip install -r requirements.txt
 * Train and evaluate the sentiment analysis models using the preprocessed data.
 * Build and run the web application to showcase the sentiment analysis results.
 * Access the web application through a web browser to interact with the sentiment analysis system.
-
-
 
 ## Future Enhancements
 The project can be further improved in the following ways:
