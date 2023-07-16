@@ -1,4 +1,5 @@
 
+
 import os
 import secrets
 from PIL import Image
@@ -223,6 +224,6 @@ def upload():
 @login_required
 def new_post():
     form =PostForm()
-     if form.validate_on_submit():
+    if form.validate_on_submit():
          flash
     return render_template('create_post.html', title='New Post')

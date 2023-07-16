@@ -1,74 +1,210 @@
 {% extends "layout.html" %}
 {% block body %}
     <div class="container-fluid">
-        <h1 class="mt-5">Movie Review Homepage</h1>
+        <h1 class="mt-5">Available Movies</h1>
 
         <div class="row mt-5 justify-content-center">
             <div class="col-md-12 mb-4">
-                <a href="https://example.com/movie1-link">
+                {% if current_user.is_authenticated %}
                     <div class="card movie-card">
-                        <img src="{{url_for('static', filename='moviepics/movie1.jpeg')}}" class="card-img-top movie-image" alt="Movie 1">
+                        <a href="{{url_for('view_reviews1')}}">
+                            <img src="{{url_for('static', filename='moviepics/movie1.jpeg')}}" class="card-img-top movie-image" alt="Movie 1">
+                        </a>
                         <div class="card-body">
-                            <h5 class="card-title">Movie 1</h5>
-                            <p class="card-text">Click to view or add reviews</p>
+                            <h5 class="card-title">Battle on Buka Street</h5>
+                            <a href="{{url_for('view_reviews1')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                  </svg>&nbsp;View reviews
+                            </a>
+                            <a href="{{url_for('leave_a_review1')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                  </svg>&nbsp;Leave a review
+                            </a>
                         </div>
                     </div>
-                </a>
-            </div>
 
-            <div class="col-md-12 mb-4">
-                <a href="https://example.com/movie2-link">
+
+                    
+
                     <div class="card movie-card">
-                        <img src="{{url_for('static', filename='moviepics/movie2.jpg')}}" class="card-img-top movie-image" alt="Movie 2">
+                        <a href="{{url_for('view_reviews2')}}">
+                            <img src="{{url_for('static', filename='moviepics/movie2.jpg')}}" class="card-img-top movie-image" alt="Movie 2">
+                        </a>
                         <div class="card-body">
-                            <h5 class="card-title">Movie 2</h5>
-                            <p class="card-text">Click to view or add reviews</p>
+                            <h5 class="card-title">Elesin Oba</h5>
+                            <a href="{{url_for('view_reviews2')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                  </svg>&nbsp;View reviews
+                            </a>
+                            <a href="{{url_for('leave_a_review2')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                  </svg>&nbsp;Leave a review
+                            </a>
                         </div>
                     </div>
-                </a>
+
+
+                    <div class="card movie-card">
+                        <a href="{{url_for('view_reviews3')}}">
+                            <img src="{{url_for('static', filename='moviepics/movie3.jpg')}}" class="card-img-top movie-image" alt="Movie 3">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">The Ghost And The Tout Too</h5>
+                            <a href="{{url_for('view_reviews3')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                  </svg>&nbsp;View reviews
+                            </a>
+                            <a href="{{url_for('leave_a_review3')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                  </svg>&nbsp;Leave a review
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="card movie-card">
+                        <a href="{{url_for('view_reviews4')}}">
+                            <img src="{{url_for('static', filename='moviepics/movie4.jpg')}}" class="card-img-top movie-image" alt="Movie 4">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">Citation</h5>
+                            <a href="{{url_for('view_reviews4')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                  </svg>&nbsp;View reviews
+                            </a>
+                            <a href="{{url_for('leave_a_review4')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                  </svg>&nbsp;Leave a review
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card movie-card">
+                        <a href="{{url_for('login')}}">
+                            <img src="{{url_for('static', filename='moviepics/movie1.jpeg')}}" class="card-img-top movie-image" alt="Movie 1">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">Battle on Buka Street</h5>
+                            <a href="{{url_for('login')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                  </svg>&nbsp;View reviews
+                            </a>
+                            <a href="{{url_for('login')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                  </svg>&nbsp;Leave a review
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="card movie-card">
+                        <a href="{{url_for('login')}}">
+                            <img src="{{url_for('static', filename='moviepics/movie2.jpg')}}" class="card-img-top movie-image" alt="Movie 2">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">Elesin Oba</h5>
+                            <a href="{{url_for('login')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                  </svg>&nbsp;View reviews
+                            </a>
+                            <a href="{{url_for('login')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                  </svg>&nbsp;Leave a review
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="card movie-card">
+                        <a href="{{url_for('login')}}">
+                            <img src="{{url_for('static', filename='moviepics/movie3.jpg')}}" class="card-img-top movie-image" alt="Movie 3">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">The Ghost And The Tout Too</h5>
+                            <a href="{{url_for('login')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                  </svg>&nbsp;View reviews
+                            </a>
+                            <a href="{{url_for('login')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                  </svg>&nbsp;Leave a review
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="card movie-card">
+                        <a href="{{url_for('login')}}">
+                            <img src="{{url_for('static', filename='moviepics/movie4.jpg')}}" class="card-img-top movie-image" alt="Movie 4">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">Citation</h5>
+                            <a href="{{url_for('login')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                  </svg>&nbsp;View reviews
+                            </a>
+                            <a href="{{url_for('login')}}" class="movie-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                  </svg>&nbsp;Leave a review
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
-        
-
-        
-          <div class="col-md-12 mb-4">
-              <a href="https://example.com/movie1-link">
-                  <div class="card movie-card">
-                      <img src="{{url_for('static', filename='moviepics/movie3.jpg')}}" class="card-img-top movie-image" alt="Movie 1">
-                      <div class="card-body">
-                          <h5 class="card-title">Movie 1</h5>
-                          <p class="card-text">Click to view or add reviews</p>
-                      </div>
-                  </div>
-              </a>
-          </div>
-
-          <div class="col-md-12 mb-4">
-              <a href="https://example.com/movie2-link">
-                  <div class="card movie-card">
-                      <img src="{{url_for('static', filename='moviepics/movie4.jpg')}}" class="card-img-top movie-image" alt="Movie 2">
-                      <div class="card-body">
-                          <h5 class="card-title">Movie 2</h5>
-                          <p class="card-text">Click to view or add reviews</p>
-                      </div>
-                  </div>
-              </a>
-          </div>
-      </div>
-
+        </div>
     </div>
 
     <style>
         .movie-image {
             height: 500px;
-            width: 140%;
+            width: auto;
             object-fit: cover;
+            margin: 30px;
         }
+
         .movie-card {
             cursor: pointer;
             transition: transform 0.3s ease-in-out;
+            margin: 20px;
+            width: 132%;
         }
+
         .movie-card:hover {
             transform: scale(1.05);
+        }
+
+        .movie-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            color: #000;
+        }
+
+        .movie-link:hover {
+            color: blue;
+            text-decoration: none;
+        }
+
+        .icon {
+            height: 20px;
+            width: 20px;
+            margin-right: 5px;
         }
     </style>
 {% endblock body %}
