@@ -5,7 +5,7 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, send_file
 from main import app, db, bcrypt, mail
 from main.forms import (RegistrationForm, LoginForm, ResetPasswordForm, RequestResetForm)
-from main.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from main.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from main.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
@@ -215,3 +215,14 @@ def upload():
         table_data = df.head(10).to_html(index=False)
 
         return render_template('index.html', table_data=table_data)
+
+
+
+#trial
+@app.route('/post/new', methods=['GET','POST'])
+@login_required
+def new_post():
+    form =PostForm()
+     if form.validate_on_submit():
+         flash
+    return render_template('create_post.html', title='New Post')
