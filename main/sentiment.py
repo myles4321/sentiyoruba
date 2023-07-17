@@ -1,13 +1,13 @@
 import pandas as pd
-import streamlit as st
-import nltk
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 import joblib
-from io import BytesIO
-import chardet
+
 
 # Load the dataset
 df = pd.read_csv('sentiment.csv')
@@ -19,8 +19,21 @@ nltk.download('stopwords')
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(df['yo_mt_review'], df['sentiment'], test_size=0.2, random_state=42)
 
+# Define the Yoruba stopwords
+yoruba_stopwords = ["a","an","bá","bí","bẹ̀rẹ̀","fún","fẹ́","gbogbo","inú","jù","jẹ","jẹ́","kan","kì","kí","kò","láti","lè","lọ","mi","mo","máa","mọ̀","ni","náà","ní",
+                    "nígbà","nítorí","nǹkan","o","padà","pé","púpọ̀","pẹ̀lú","rẹ̀","sì","sí","sínú","ṣ","ti","tí","wà","wá","wọn","wọ́n","yìí","àti","àwọn","é","í",
+                    "òun","ó","ń","ńlá","ṣe","ṣé","ṣùgbọ́n","ẹmọ́","ọjọ́","ọ̀pọ̀lọpọ̀"]
+
+# Define the tokenizer with custom Yoruba stopwords
+def tokenizer(text):
+    tokens = nltk.word_tokenize(text)
+    filtered_tokens = [token for token in tokens if token.lower() not in yoruba_stopwords]
+    return filtered_tokens
+
+df['filtered_tokens'] = df['yo_review'].apply(tokenizer)
+
 # Vectorize the text data
-vectorizer = TfidfVectorizer()
+vectorizer = TfidfVectorizer(tokenizer=tokenizer)
 X_train_vectorized = vectorizer.fit_transform(X_train)
 X_test_vectorized = vectorizer.transform(X_test)
 
@@ -38,47 +51,3 @@ joblib.dump(model, 'sentiment_analysis_model.joblib')
 
 # Load the sentiment analysis model
 loaded_model = joblib.load('sentiment_analysis_model.joblib')
-
-st.header('Sentiment Analysis')
-
-with st.expander('Analyze Text'):
-    text = st.text_input('Text here: ')
-    if text:
-        sentiment = loaded_model.predict(vectorizer.transform([text]))[0]  # Reshape not required
-        st.write('Sentiment:', sentiment)
-
-with st.expander('Analyze CSV'):
-    upl = st.file_uploader('Upload file')
-
-    def analyze_sentiment(x):
-        sentiment = loaded_model.predict(vectorizer.transform([x]))[0]  # Reshape not required
-        return sentiment
-
-    if upl:
-        content = upl.read()
-        result = chardet.detect(content)
-        encoding = result['encoding']
-
-        try:
-            df = pd.read_csv(BytesIO(content), encoding=encoding)
-        except UnicodeDecodeError:
-            df = pd.read_csv(BytesIO(content), encoding='latin-1')
-
-        column_heading = df.columns[0]  # Get the first column heading
-
-        df['analysis'] = df[column_heading].apply(analyze_sentiment)
-        st.write(df.head(10))
-
-        @st.cache
-        def convert_df(df):
-            # IMPORTANT: Cache the conversion to prevent computation on every rerun
-            return df.to_csv().encode('utf-8')
-
-        csv = convert_df(df)
-
-        st.download_button(
-            label="Download data as CSV",
-            data=csv,
-            file_name='sentiment.csv',
-            mime='text/csv',
-        )
