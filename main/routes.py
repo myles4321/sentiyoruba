@@ -465,6 +465,10 @@ class Controller(ModelView):
         return "You are not allowed to view this page"
     
 admin.add_view(Controller(User, db.session))
+admin.add_view(Controller(Leavereview, db.session))
+admin.add_view(Controller(ElesinObaReview, db.session))
+admin.add_view(Controller(TheGhostAndTheToutTooReview, db.session))
+admin.add_view(Controller(CitationReview, db.session))
 
 @app.route('/172002', methods=['GET', 'POST'])
 def admin_signup():

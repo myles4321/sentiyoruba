@@ -1,85 +1,81 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import plotly.express as px
-from matplotlib import style
-style.use('ggplot')
-import re
-from nltk.tokenize import word_tokenize
-from nltk.stem import PorterStemmer
-from nltk.corpus import stopwords
-stop_words = set(stopwords.words('english'))
-from wordcloud import WordCloud
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+import joblib
+import matplotlib.pyplot as plt
 
-df = pd.read_csv('YOSM-main/data/yosm/dataset.csv')
-df.head()
-df.shape
-df.info()
+# Load the dataset
+df = pd.read_csv('sentiment.csv')
 
+# Preprocess the data
+nltk.download('punkt')
+nltk.download('stopwords')
 
-# In[7]:
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(df['yo_mt_review'], df['sentiment'], test_size=0.2, random_state=42)
 
+# Define the Yoruba stopwords
+yoruba_stopwords = ["a","an","bá","bí","bẹ̀rẹ̀","fún","fẹ́","gbogbo","inú","jù","jẹ","jẹ́","kan","kì","kí","kò","láti","lè","lọ","mi","mo","máa","mọ̀","ni","náà","ní",
+                    "nígbà","nítorí","nǹkan","o","padà","pé","púpọ̀","pẹ̀lú","rẹ̀","sì","sí","sínú","ṣ","ti","tí","wà","wá","wọn","wọ́n","yìí","àti","àwọn","é","í",
+                    "òun","ó","ń","ńlá","ṣe","ṣé","ṣùgbọ́n","ẹmọ́","ọjọ́","ọ̀pọ̀lọpọ̀"]
 
-sns.countplot(x='sentiment', data=df)
-plt.title("Sentiment distribution")
+# Define the tokenizer with custom Yoruba stopwords
+def tokenizer(text):
+    tokens = nltk.word_tokenize(text)
+    filtered_tokens = [token for token in tokens if token.lower() not in yoruba_stopwords]
+    return filtered_tokens
 
+df['filtered_tokens'] = df['yo_review'].apply(tokenizer)
 
-# In[8]:
+# Vectorize the text data
+vectorizer = TfidfVectorizer(tokenizer=tokenizer)
+X_train_vectorized = vectorizer.fit_transform(X_train)
+X_test_vectorized = vectorizer.transform(X_test)
 
+# Train the sentiment analysis model
+model = LogisticRegression()
+model.fit(X_train_vectorized, y_train)
 
-for i in range(5):
-    print("Yoruba Review: ", [i])
-    print(df['yo_review'].iloc[i], "\n")
-    print("Sentiment: ", df['sentiment'].iloc[i], "\n\n")
+# Evaluate the model
+y_pred = model.predict(X_test_vectorized)
+accuracy = accuracy_score(y_test, y_pred)
+print('Model Accuracy:', accuracy)
 
+# Save the model
+joblib.dump(model, 'sentiment_analysis_model.joblib')
 
-def no_of_words(text):
-    words= text.split()
-    word_count = len(words)
-    return word_count
+# Load the sentiment analysis model
+loaded_model = joblib.load('sentiment_analysis_model.joblib')
 
-df['word count'] = df['yo_review'].apply(no_of_words)
-df.head()
+# Count the number of positive and negative reviews
+positive_reviews = df[df['sentiment'] == 'positive'].shape[0]
+negative_reviews = df[df['sentiment'] == 'negative'].shape[0]
 
+# Create a bar chart
+labels = ['Positive', 'Negative']
+values = [positive_reviews, negative_reviews]
 
-
-#word count to view distribution of positive and negative reviews
-fig, ax = plt.subplots(1,2, figsize=(10,6))
-ax[0].hist(df[df['sentiment'] == 'positive']['word count'], label='Positive', color='blue', rwidth=0.9);
-ax[0].legend(loc='upper right');
-ax[1].hist(df[df['sentiment'] == 'negative']['word count'], label='Negative', color='red', rwidth=0.9);
-ax[1].legend(loc='upper right');
-fig.suptitle("Number of words in review")
+plt.bar(labels, values)
+plt.xlabel('Sentiment')
+plt.ylabel('Count')
+plt.title('Number of Positive and Negative Reviews')
 plt.show()
 
+# Calculate the length of positive and negative reviews
+positive_lengths = df[df['sentiment'] == 'positive']['yo_mt_review'].apply(len)
+negative_lengths = df[df['sentiment'] == 'negative']['yo_mt_review'].apply(len)
 
-#the length of positive and negative reviews
-fig, ax = plt.subplots(1,2, figsize=(10,6))
-ax[0].hist(df[df['sentiment'] == 'positive']['yo_review'].str.len(), label='Positive', color='orange', rwidth=0.9);
-ax[0].legend(loc='upper right');
-ax[1].hist(df[df['sentiment'] == 'negative']['yo_review'].str.len(), label='Negative', color='yellow', rwidth=0.9);
-ax[1].legend(loc='upper right');
-fig.suptitle("length of positive and negative reviews")
+# Create a bar chart for review lengths
+labels = ['Positive', 'Negative']
+values = [positive_lengths.mean(), negative_lengths.mean()]
+
+plt.bar(labels, values)
+plt.xlabel('Sentiment')
+plt.ylabel('Review Length')
+plt.title('Average Review Length')
 plt.show()
-
-
-df.sentiment.replace("positive", 1, inplace=True)
-df.sentiment.replace("negative", 2, inplace=True)
-
-
-df.head()
-
-def data_processing(text):
-    text= text.lower()
-    text = re.sub('<br />', '', text)
-    text = re.sub(r"https\S+|www\S+|http\S+", '', text, flags = re.MULTILINE)
-    text = re.sub(r'\@w+|\#', '', text)
-    text = re.sub(r'[^\w\s]', '', text)
-    text_tokens = word_tokenize(text)
-    filtered_text = [w for w in text_tokens if not w in stop_words]
-    return " ".join(filtered_text)
-
-df.sentiment = df['yo_review'].apply(data_processing)
-
