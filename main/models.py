@@ -1,5 +1,5 @@
 from datetime import datetime
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 from main import db, login_manager, app, admin
 from flask_login import UserMixin
 from flask_admin.contrib.sqla import ModelView
@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(15), unique=True, nullable=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     #phone = db.Column(db.Integer, unique=True, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    image_file = db.Column(db.String(20), nullable=False, default='defaultq.jpg')
     password = db.Column(db.String(60), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     reviews = db.relationship('Leavereview', backref='user', lazy=True)
